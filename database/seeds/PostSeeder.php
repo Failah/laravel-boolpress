@@ -29,11 +29,13 @@ class PostSeeder extends Seeder
             $existingPost = Post::where('slug', $slug)->first();
             while ($existingPost) {
                 $slug = $slug_base . '_' . $counter;
-                $existingPost = Post::where('slug', $anotherSlug)->first();
+                $existingPost = Post::where('slug', $slug)->first();
                 $counter++;
             }
 
             $post->slug = $slug;
+
+            $post->save();
         }
     }
 }

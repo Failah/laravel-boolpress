@@ -50,16 +50,8 @@ class PostController extends Controller
         $form_data = $request->all();
         $post = new Post();
         $post->fill($form_data);
-        $slug = Str::slug($post->title);
-        $slug_base = $slug;
 
-        $existingPost = Post::where('slug', $slug)->first();
-        $counter = 1;
-        while ($existingPost) {
-            $slug = $slug_base . '_' . $counter;
-            $counter++;
-            $existingPost = Post::where('slug', $slug)->first();
-        }
+        $slug = $this->getSlug($post->title);
         $post->slug = $slug;
         $post->save();
 
@@ -100,6 +92,20 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required',
+        ]);
+        $form_data = $request->all();
+
+        if ($post->title != $form_data['title']) {
+            $slug = $this->getSlug($form_data['title']);
+            $form_data['slug'] = $slug;
+        }
+
+        $post->update($form_data);
+
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
@@ -111,5 +117,22 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        $post->delete();
+        return redirect()->route('admin.posts.index');
+    }
+
+    private function getSlug($title)
+    {
+        $slug = Str::slug($title);
+        $slug_base = $slug;
+
+        $existingPost = Post::where('slug', $slug)->first();
+        $counter = 1;
+        while ($existingPost) {
+            $slug = $slug_base . '_' . $counter;
+            $counter++;
+            $existingPost = Post::where('slug', $slug)->first();
+        }
+        return $slug;
     }
 }
