@@ -1,6 +1,7 @@
 <template>
   <div>
     <ExampleComponent />
+    test
   </div>
 </template>
 
