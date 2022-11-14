@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Post;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -15,6 +18,8 @@ class PostController extends Controller
     public function index()
     {
         //
+        $posts = Post::all();
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -25,6 +30,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('admin.posts.create');
     }
 
     /**
@@ -36,6 +42,28 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required',
+        ]);
+
+        $form_data = $request->all();
+        $post = new Post();
+        $post->fill($form_data);
+        $slug = Str::slug($post->title);
+        $slug_base = $slug;
+
+        $existingPost = Post::where('slug', $slug)->first();
+        $counter = 1;
+        while ($existingPost) {
+            $slug = $slug_base . '_' . $counter;
+            $counter++;
+            $existingPost = Post::where('slug', $slug)->first();
+        }
+        $post->slug = $slug;
+        $post->save();
+
+        return redirect()->route('admin.posts.show', $post->id);
     }
 
     /**
@@ -47,6 +75,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
+        return view('admin.post.show', compact('post'));
     }
 
     /**
@@ -58,6 +87,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ExampleComponent />
-    test
+    <div>test test</div>
   </div>
 </template>
 
