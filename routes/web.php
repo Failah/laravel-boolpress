@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('admin.home');
-});
+// Route::get('/', function () {
+//     return redirect()->route('admin.home');
+// });
 
 Auth::routes();
 
@@ -29,3 +30,7 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('/', 'HomeController@index')->name('home');
     });
+
+Route::get('{any?}', function () {
+    return view('guest.home');
+})->where('any', '.*');
