@@ -49846,8 +49846,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-23-15112022\Esercitazione-23\laravel-one-to-many\resources\js\front.js */"./resources/js/front.js");
-module.exports = __webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-23-15112022\Esercitazione-23\laravel-one-to-many\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-24-16112022\Esercitazione-24\laravel-many-to-many\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-24-16112022\Esercitazione-24\laravel-many-to-many\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
