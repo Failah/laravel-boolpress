@@ -53,6 +53,7 @@
                 </div>
             @enderror
         </div>
+
         {{-- tags selection --}}
         @if ($errors->any())
             <div>
@@ -74,10 +75,12 @@
             </div>
         @endif
 
-        {{-- utility buttons --}}
         <input type="submit" value="Apply changes">
     </form>
     <div class="mt-5">
         <a href="{{ route('admin.posts.index') }}">BACK TO THE POSTS LIST</a>
     </div>
+
+
+
 @endsection

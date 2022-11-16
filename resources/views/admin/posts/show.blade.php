@@ -7,7 +7,7 @@
 
     @if ($post->category)
         <div class="py-2">
-            Category: {{ $post->category['name'] }}
+            <a href="{{ route('admin.categories.show', $post->category->id) }}">Category: {{ $post->category->name }}</a>
         </div>
     @else
         <p class="mt-3">Category: No category has been selected for this post.</p>
