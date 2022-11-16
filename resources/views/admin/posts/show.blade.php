@@ -15,6 +15,14 @@
     <div class="py-2">
         Content: {{ $post->content }}
     </div>
+    <div class="mt-2">
+        <span>Tags:</span>
+        @foreach ($post->tags as $tag)
+            <span>{{ $tag->name }}</span>
+        @endforeach
+    </div>
+
+    {{-- utility buttons --}}
     <div class="mt-3">
         <a href="{{ route('admin.posts.edit', $post->id) }}">Edit Post</a>
     </div>
