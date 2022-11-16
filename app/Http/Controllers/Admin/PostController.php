@@ -50,6 +50,7 @@ class PostController extends Controller
             'title' => 'required|min:5|max:255',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id',
         ]);
 
         $form_data = $request->all();
@@ -59,6 +60,10 @@ class PostController extends Controller
         $slug = $this->getSlug($post->title);
         $post->slug = $slug;
         $post->save();
+
+        if (array_key_exists('tags', $form_data)) {
+            $post->tags()->sync($form_data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $post->id);
     }
@@ -84,8 +89,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.edit', compact(['post', 'categories']));
+        return view('admin.posts.edit', compact(['post', 'categories', 'tags']));
     }
 
     /**
@@ -102,12 +108,19 @@ class PostController extends Controller
             'title' => 'required|min:5|max:255',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id',
         ]);
         $form_data = $request->all();
 
         if ($post->title != $form_data['title']) {
             $slug = $this->getSlug($form_data['title']);
             $form_data['slug'] = $slug;
+        }
+
+        if (array_key_exists('tags', $form_data)) {
+            $post->tags()->sync($form_data['tags']);
+        } else {
+            $post->tags()->sync([]);
         }
 
         $post->update($form_data);
@@ -124,6 +137,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
