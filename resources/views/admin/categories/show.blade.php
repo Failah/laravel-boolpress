@@ -15,8 +15,8 @@
         </form>
     </div>
 
-    <h3 class="mt-4">
-        Related Posts with Category: {{ $category->name }}
+    <h3 class="mt-5">
+        Related Posts in this Category:
     </h3>
     <ul>
         @foreach ($category->posts as $post)
