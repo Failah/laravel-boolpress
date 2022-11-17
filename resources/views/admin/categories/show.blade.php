@@ -11,7 +11,7 @@
         <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <input onclick="confirm('Do you really want do delete this Category?')" type="submit" value="Delete">
+            <input onclick="return confirm('Do you really want do delete this Category?')" type="submit" value="Delete">
         </form>
     </div>
 
