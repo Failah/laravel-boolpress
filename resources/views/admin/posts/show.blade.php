@@ -22,6 +22,11 @@
         @endforeach
     </div>
 
+    {{-- image --}}
+    <div>
+        <img class="img-fluid" src="{{ asset('storage/' . $post->cover_path) }}" alt="{{ $post->title }}">
+    </div>
+
     {{-- utility buttons --}}
     <div class="mt-3">
         <a href="{{ route('admin.posts.edit', $post->id) }}">Edit Post</a>

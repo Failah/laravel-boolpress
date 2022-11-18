@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -51,9 +52,17 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'exists:tags,id',
+            'image' => 'nullable|image|max:1024',
         ]);
 
         $form_data = $request->all();
+
+        // image path
+        if (array_key_exists('image', $form_data)) {
+            $cover_path = Storage::put('post_covers', $form_data['image']);
+            $form_data['cover_path'] = $cover_path;
+        }
+
         $post = new Post();
         $post->fill($form_data);
 
@@ -109,6 +118,7 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'exists:tags,id',
+            'image' => 'nullable|image|max:1024',
         ]);
         $form_data = $request->all();
 
@@ -121,6 +131,17 @@ class PostController extends Controller
             $post->tags()->sync($form_data['tags']);
         } else {
             $post->tags()->sync([]);
+        }
+
+        // image path
+        if (array_key_exists('image', $form_data)) {
+
+            if ($post->cover_path) {
+                Storage::delete($post->cover_path);
+            }
+
+            $cover_path = Storage::put('post_covers', $form_data['image']);
+            $form_data['cover_path'] = $cover_path;
         }
 
         $post->update($form_data);
@@ -138,6 +159,11 @@ class PostController extends Controller
     {
         //
         $post->tags()->sync([]);
+
+        if ($post->cover_path) {
+            Storage::delete($post->cover_path);
+        }
+
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
