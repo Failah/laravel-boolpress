@@ -79,7 +79,15 @@
         <div>
             <label for="image">Cover image:</label>
             <input type="file" name="image">
-            <img class="img-fluid" src="{{ asset('storage/' . $post->cover_path) }}" alt="{{ $post->title }}">
+
+            @if ($post->cover_path)
+                <img class="img-fluid" src="{{ asset('storage/' . $post->cover_path) }}" alt="{{ $post->title }}">
+            @else
+                <div>
+                    No image selected
+                </div>
+            @endif
+
             @error('image')
                 <div class="my-2 bg-danger text-white">
                     {{ $message }}

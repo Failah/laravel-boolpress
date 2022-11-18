@@ -24,7 +24,13 @@
 
     {{-- image --}}
     <div>
-        <img class="img-fluid" src="{{ asset('storage/' . $post->cover_path) }}" alt="{{ $post->title }}">
+        @if ($post->cover_path)
+            <img class="img-fluid" src="{{ asset('storage/' . $post->cover_path) }}" alt="{{ $post->title }}">
+        @else
+            <div class="mt-3">
+                Image: No image selected
+            </div>
+        @endif
     </div>
 
     {{-- utility buttons --}}
