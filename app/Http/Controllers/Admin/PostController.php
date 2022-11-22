@@ -52,7 +52,7 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'exists:tags,id',
-            'image' => 'nullable|image|max:1024',
+            // 'image' => 'nullable|image|max:1024',
         ]);
 
         $form_data = $request->all();
@@ -118,7 +118,7 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'exists:tags,id',
-            'image' => 'nullable|image|max:1024',
+            // 'image' => 'nullable|image|max:1024',
         ]);
         $form_data = $request->all();
 
