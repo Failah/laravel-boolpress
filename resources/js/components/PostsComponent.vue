@@ -8,21 +8,14 @@
       {{ errorMessage }}
     </div>
 
-    <div v-else-if="posts.length > 0">
-      <ul>
-        <li v-for="post in posts" :key="post.id">
-          <h4 @click="showPost(post.id)">
-            {{ post.title }}
-          </h4>
-        </li>
-      </ul>
-    </div>
-
-    <div v-else>No Posts to be displayed!</div>
+    <PostsListComponent v-else :posts="posts" @clickedPost="showPost" />
   </div>
 </template>
 
 <script>
+import PostComponent from "./PostComponent.vue";
+import PostsListComponent from "./PostsListComponent.vue";
+
 export default {
   name: "PostsComponent",
   data() {
@@ -31,6 +24,11 @@ export default {
       errorMessage: "",
       loading: true,
     };
+  },
+
+  components: {
+    PostComponent,
+    PostsListComponent,
   },
 
   mounted() {
@@ -49,7 +47,7 @@ export default {
 
   methods: {
     showPost(id) {
-      console.log(id);
+      console.log("clicked post with id:", id);
 
       this.loading = true;
 
@@ -68,12 +66,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h4 {
-  cursor: pointer;
-
-  &:hover {
-    color: rgb(25, 72, 88);
-    text-decoration: underline;
-  }
-}
 </style>
