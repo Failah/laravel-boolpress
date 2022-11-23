@@ -11,10 +11,8 @@
     <div v-else-if="posts.length > 0">
       <ul>
         <li v-for="post in posts" :key="post.id">
-          <h4>
-            <a href="#">
-              {{ post.title }}
-            </a>
+          <h4 @click="showPost(post.id)">
+            {{ post.title }}
           </h4>
         </li>
       </ul>
@@ -48,8 +46,34 @@ export default {
       this.loading = false;
     });
   },
+
+  methods: {
+    showPost(id) {
+      console.log(id);
+
+      this.loading = true;
+
+      axios
+        .get("/api/posts/" + id)
+        .then((response) => {
+          console.log(response);
+          this.loading = false;
+        })
+        .catch((e) => {
+          console.log("errore", e);
+        });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+h4 {
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(25, 72, 88);
+    text-decoration: underline;
+  }
+}
 </style>
