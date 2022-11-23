@@ -1913,7 +1913,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
-      errorMessage: ""
+      errorMessage: "",
+      loading: true
     };
   },
   mounted: function mounted() {
@@ -1927,6 +1928,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         _this.errorMessage = data.error;
       }
+      _this.loading = false;
     });
   }
 });
@@ -1969,15 +1971,15 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("h2", {
     staticClass: "my-3"
-  }, [_vm._v("Posts List:")]), _vm._v(" "), _c("ul", _vm._l(_vm.posts, function (post) {
+  }, [_vm._v("Posts List:")]), _vm._v(" "), _vm.loading ? _c("div", [_vm._v("... LOADING ALL CONTENTS, PLEASE WAIT...")]) : _vm.errorMessage.length > 0 ? _c("div", [_vm._v("\n    " + _vm._s(_vm.errorMessage) + "\n  ")]) : _vm.posts.length > 0 ? _c("div", [_c("ul", _vm._l(_vm.posts, function (post) {
     return _c("li", {
       key: post.id
     }, [_c("h4", [_c("a", {
       attrs: {
         href: "#"
       }
-    }, [_vm._v("\n          " + _vm._s(post.title) + "\n        ")])])]);
-  }), 0)]);
+    }, [_vm._v("\n            " + _vm._s(post.title) + "\n          ")])])]);
+  }), 0)]) : _c("div", [_vm._v("No Posts to be displayed!")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

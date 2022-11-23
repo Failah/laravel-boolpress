@@ -1,15 +1,26 @@
 <template>
   <div>
     <h2 class="my-3">Posts List:</h2>
-    <ul>
-      <li v-for="post in posts" :key="post.id">
-        <h4>
-          <a href="#">
-            {{ post.title }}
-          </a>
-        </h4>
-      </li>
-    </ul>
+
+    <div v-if="loading">... LOADING ALL CONTENTS, PLEASE WAIT...</div>
+
+    <div v-else-if="errorMessage.length > 0">
+      {{ errorMessage }}
+    </div>
+
+    <div v-else-if="posts.length > 0">
+      <ul>
+        <li v-for="post in posts" :key="post.id">
+          <h4>
+            <a href="#">
+              {{ post.title }}
+            </a>
+          </h4>
+        </li>
+      </ul>
+    </div>
+
+    <div v-else>No Posts to be displayed!</div>
   </div>
 </template>
 
@@ -20,6 +31,7 @@ export default {
     return {
       posts: [],
       errorMessage: "",
+      loading: true,
     };
   },
 
@@ -33,6 +45,7 @@ export default {
       } else {
         this.errorMessage = data.error;
       }
+      this.loading = false;
     });
   },
 };
