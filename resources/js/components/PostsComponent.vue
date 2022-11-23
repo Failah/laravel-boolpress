@@ -1,8 +1,15 @@
 <template>
   <div>
-    <div v-for="post in posts" :key="post.id">
-      <h2>{{ post.title }}</h2>
-    </div>
+    <h2 class="my-3">Posts List:</h2>
+    <ul>
+      <li v-for="post in posts" :key="post.id">
+        <h4>
+          <a href="#">
+            {{ post.title }}
+          </a>
+        </h4>
+      </li>
+    </ul>
   </div>
 </template>
 
