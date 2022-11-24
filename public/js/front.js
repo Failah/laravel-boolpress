@@ -50699,8 +50699,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-25-21112022\Esercitazione-25\laravel-api\resources\js\front.js */"./resources/js/front.js");
-module.exports = __webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-25-21112022\Esercitazione-25\laravel-api\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-26-22112022\Esercitazione-26\laravel-boolpress\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\Valerio\Desktop\Boolean\Lezioni-back-end-PHP-MAMP\Lezioni\Lezione-26-22112022\Esercitazione-26\laravel-boolpress\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
