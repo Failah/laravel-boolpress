@@ -2033,7 +2033,12 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", [_c("h3", [_vm._v("\n    " + _vm._s(_vm.post.title) + "\n  ")]), _vm._v(" "), _c("div", [_vm._v("\n    " + _vm._s(_vm.post.content) + "\n  ")])]);
+  return _c("div", [_c("h3", [_vm._v("\n    " + _vm._s(_vm.post.title) + "\n  ")]), _vm._v(" "), _c("div", [_vm._v("\n    " + _vm._s(_vm.post.content) + "\n  ")]), _vm._v(" "), _vm.post.cover_path ? _c("div", [_c("img", {
+    attrs: {
+      src: _vm.post.cover_path,
+      alt: _vm.post.title
+    }
+  })]) : _vm._e()]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
