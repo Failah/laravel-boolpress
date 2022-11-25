@@ -8,7 +8,16 @@
       {{ errorMessage }}
     </div>
 
-    <PostsListComponent v-else :posts="posts" @clickedPost="showPost" />
+    <PostsListComponent
+      v-else-if="!detail"
+      :posts="posts"
+      @clickedPost="showPost"
+    />
+
+    <div v-else>
+      <PostComponent :post="detail" />
+      <button @click="detail = undefined">Back To Posts List</button>
+    </div>
   </div>
 </template>
 
@@ -21,6 +30,7 @@ export default {
   data() {
     return {
       posts: [],
+      detail: undefined,
       errorMessage: "",
       loading: true,
     };
@@ -55,6 +65,9 @@ export default {
         .get("/api/posts/" + id)
         .then((response) => {
           console.log(response);
+          this.detail = response.data.success
+            ? response.data.results
+            : undefined;
           this.loading = false;
         })
         .catch((e) => {
