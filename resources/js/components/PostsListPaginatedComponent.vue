@@ -8,6 +8,13 @@
           </h4>
         </li>
       </ul>
+
+      <!-- navigation buttons for posts pages -->
+      <div class="row my-5 mx-3">
+        <button @click="go(paginatedPosts.prev_page_url)">Previous Page</button>
+        <div class="mx-5">{{ currentPage }} / {{ totalPages }}</div>
+        <button @click="go(paginatedPosts.next_page_url)">Next Page</button>
+      </div>
     </div>
 
     <div v-else>No Posts to be displayed!</div>
@@ -22,6 +29,12 @@ export default {
     posts() {
       return this.paginatedPosts.data;
     },
+    currentPage() {
+      return this.paginatedPosts.current_page;
+    },
+    totalPages() {
+      return this.paginatedPosts.last_page;
+    },
   },
 
   props: {
@@ -31,6 +44,10 @@ export default {
   methods: {
     showPost(id) {
       this.$emit("clickedPost", id);
+    },
+
+    go(url) {
+      this.$emit("requestPage", url);
     },
   },
 };

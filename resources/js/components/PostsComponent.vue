@@ -17,6 +17,7 @@
       v-else-if="!detail"
       :paginatedPosts="posts"
       @clickedPost="showPost"
+      @requestPage="loadPage"
     />
 
     <div v-else>
@@ -51,16 +52,7 @@ export default {
   mounted() {
     console.log("test PostComponent");
 
-    axios.get("/api/posts").then(({ data }) => {
-      console.log("response is: ", data);
-      if (data.success) {
-        this.posts = data.results;
-        console.log(this.posts);
-      } else {
-        this.errorMessage = data.error;
-      }
-      this.loading = false;
-    });
+    this.loadPage("/api/posts");
   },
 
   methods: {
@@ -81,6 +73,19 @@ export default {
         .catch((e) => {
           console.log("errore", e);
         });
+    },
+
+    loadPage(url) {
+      axios.get(url).then(({ data }) => {
+        console.log("response is: ", data);
+        if (data.success) {
+          this.posts = data.results;
+          console.log(this.posts);
+        } else {
+          this.errorMessage = data.error;
+        }
+        this.loading = false;
+      });
     },
   },
 };

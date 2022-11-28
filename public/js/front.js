@@ -1948,31 +1948,34 @@ __webpack_require__.r(__webpack_exports__);
     PostsListPaginatedComponent: _PostsListPaginatedComponent_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   mounted: function mounted() {
-    var _this = this;
     console.log("test PostComponent");
-    axios.get("/api/posts").then(function (_ref) {
-      var data = _ref.data;
-      console.log("response is: ", data);
-      if (data.success) {
-        _this.posts = data.results;
-        console.log(_this.posts);
-      } else {
-        _this.errorMessage = data.error;
-      }
-      _this.loading = false;
-    });
+    this.loadPage("/api/posts");
   },
   methods: {
     showPost: function showPost(id) {
-      var _this2 = this;
+      var _this = this;
       console.log("clicked post with id:", id);
       this.loading = true;
       axios.get("/api/posts/" + id).then(function (response) {
         console.log(response);
-        _this2.detail = response.data.success ? response.data.results : undefined;
-        _this2.loading = false;
+        _this.detail = response.data.success ? response.data.results : undefined;
+        _this.loading = false;
       })["catch"](function (e) {
         console.log("errore", e);
+      });
+    },
+    loadPage: function loadPage(url) {
+      var _this2 = this;
+      axios.get(url).then(function (_ref) {
+        var data = _ref.data;
+        console.log("response is: ", data);
+        if (data.success) {
+          _this2.posts = data.results;
+          console.log(_this2.posts);
+        } else {
+          _this2.errorMessage = data.error;
+        }
+        _this2.loading = false;
       });
     }
   }
@@ -2017,6 +2020,12 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     posts: function posts() {
       return this.paginatedPosts.data;
+    },
+    currentPage: function currentPage() {
+      return this.paginatedPosts.current_page;
+    },
+    totalPages: function totalPages() {
+      return this.paginatedPosts.last_page;
     }
   },
   props: {
@@ -2025,6 +2034,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showPost: function showPost(id) {
       this.$emit("clickedPost", id);
+    },
+    go: function go(url) {
+      this.$emit("requestPage", url);
     }
   }
 });
@@ -2099,7 +2111,8 @@ var render = function render() {
       paginatedPosts: _vm.posts
     },
     on: {
-      clickedPost: _vm.showPost
+      clickedPost: _vm.showPost,
+      requestPage: _vm.loadPage
     }
   }) : _c("div", [_c("PostComponent", {
     attrs: {
@@ -2175,7 +2188,23 @@ var render = function render() {
         }
       }
     }, [_vm._v("\n          " + _vm._s(post.title) + "\n        ")])]);
-  }), 0)]) : _c("div", [_vm._v("No Posts to be displayed!")])]);
+  }), 0), _vm._v(" "), _c("div", {
+    staticClass: "row my-5 mx-3"
+  }, [_c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.paginatedPosts.prev_page_url);
+      }
+    }
+  }, [_vm._v("Previous Page")]), _vm._v(" "), _c("div", {
+    staticClass: "mx-5"
+  }, [_vm._v(_vm._s(_vm.currentPage) + " / " + _vm._s(_vm.totalPages))]), _vm._v(" "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.paginatedPosts.next_page_url);
+      }
+    }
+  }, [_vm._v("Next Page")])])]) : _c("div", [_vm._v("No Posts to be displayed!")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
