@@ -2191,20 +2191,44 @@ var render = function render() {
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "row my-5 mx-3"
   }, [_c("button", {
+    "class": {
+      disabled: _vm.currentPage === 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.paginatedPosts.first_page_url);
+      }
+    }
+  }, [_vm._v("\n        First Page\n      ")]), _vm._v(" "), _c("button", {
+    "class": {
+      disabled: !_vm.paginatedPosts.prev_page_url
+    },
     on: {
       click: function click($event) {
         return _vm.go(_vm.paginatedPosts.prev_page_url);
       }
     }
-  }, [_vm._v("Previous Page")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        Previous Page\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "mx-5"
   }, [_vm._v(_vm._s(_vm.currentPage) + " / " + _vm._s(_vm.totalPages))]), _vm._v(" "), _c("button", {
+    "class": {
+      disabled: !_vm.paginatedPosts.next_page_url
+    },
     on: {
       click: function click($event) {
         return _vm.go(_vm.paginatedPosts.next_page_url);
       }
     }
-  }, [_vm._v("Next Page")])])]) : _c("div", [_vm._v("No Posts to be displayed!")])]);
+  }, [_vm._v("\n        Next Page\n      ")]), _vm._v(" "), _c("button", {
+    "class": {
+      disabled: _vm.currentPage === _vm.totalPages
+    },
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.paginatedPosts.last_page_url);
+      }
+    }
+  }, [_vm._v("\n        Last Page\n      ")])])]) : _c("div", [_vm._v("No Posts to be displayed!")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -6631,7 +6655,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "h4[data-v-6ecbe206] {\n  cursor: pointer;\n}\nh4[data-v-6ecbe206]:hover {\n  color: rgb(25, 72, 88);\n  text-decoration: underline;\n}", ""]);
+exports.push([module.i, "h4[data-v-6ecbe206] {\n  cursor: pointer;\n}\nh4[data-v-6ecbe206]:hover {\n  color: rgb(25, 72, 88);\n  text-decoration: underline;\n}\nbutton[data-v-6ecbe206] {\n  margin: 0px 10px;\n}\n.disabled[data-v-6ecbe206] {\n  opacity: 0.5;\n  pointer-events: none;\n}", ""]);
 
 // exports
 

@@ -11,9 +11,31 @@
 
       <!-- navigation buttons for posts pages -->
       <div class="row my-5 mx-3">
-        <button @click="go(paginatedPosts.prev_page_url)">Previous Page</button>
+        <button
+          :class="{ disabled: currentPage === 1 }"
+          @click="go(paginatedPosts.first_page_url)"
+        >
+          First Page
+        </button>
+        <button
+          :class="{ disabled: !paginatedPosts.prev_page_url }"
+          @click="go(paginatedPosts.prev_page_url)"
+        >
+          Previous Page
+        </button>
         <div class="mx-5">{{ currentPage }} / {{ totalPages }}</div>
-        <button @click="go(paginatedPosts.next_page_url)">Next Page</button>
+        <button
+          :class="{ disabled: !paginatedPosts.next_page_url }"
+          @click="go(paginatedPosts.next_page_url)"
+        >
+          Next Page
+        </button>
+        <button
+          :class="{ disabled: currentPage === totalPages }"
+          @click="go(paginatedPosts.last_page_url)"
+        >
+          Last Page
+        </button>
       </div>
     </div>
 
@@ -61,5 +83,14 @@ h4 {
     color: rgb(25, 72, 88);
     text-decoration: underline;
   }
+}
+
+button {
+  margin: 0px 10px;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 </style>
