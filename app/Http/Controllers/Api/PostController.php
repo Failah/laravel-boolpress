@@ -20,7 +20,7 @@ class PostController extends Controller
         //
         try {
             // use paginate to display just N number of records
-            $posts = Post::all();
+            $posts = Post::paginate(5);
 
             $data = [
                 'results' => $posts,

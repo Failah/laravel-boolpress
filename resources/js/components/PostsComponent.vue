@@ -8,9 +8,14 @@
       {{ errorMessage }}
     </div>
 
-    <PostsListComponent
+    <!-- <PostsListComponent
       v-else-if="!detail"
       :posts="posts"
+      @clickedPost="showPost"
+    /> -->
+    <PostsListPaginatedComponent
+      v-else-if="!detail"
+      :paginatedPosts="posts"
       @clickedPost="showPost"
     />
 
@@ -24,12 +29,13 @@
 <script>
 import PostComponent from "./PostComponent.vue";
 import PostsListComponent from "./PostsListComponent.vue";
+import PostsListPaginatedComponent from "./PostsListPaginatedComponent.vue";
 
 export default {
   name: "PostsComponent",
   data() {
     return {
-      posts: [],
+      posts: undefined,
       detail: undefined,
       errorMessage: "",
       loading: true,
@@ -39,6 +45,7 @@ export default {
   components: {
     PostComponent,
     PostsListComponent,
+    PostsListPaginatedComponent,
   },
 
   mounted() {
@@ -48,6 +55,7 @@ export default {
       console.log("response is: ", data);
       if (data.success) {
         this.posts = data.results;
+        console.log(this.posts);
       } else {
         this.errorMessage = data.error;
       }
